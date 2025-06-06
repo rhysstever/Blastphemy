@@ -8,6 +8,11 @@ public class PlayerControls : MonoBehaviour
 
     private InputAction moveAction, shootAction;
 
+    private void Awake() {
+        moveAction = InputSystem.actions.FindAction("Move");
+        shootAction = InputSystem.actions.FindAction("Shoot");
+    }
+
     private void OnEnable() {
         InputActions.FindActionMap("Player").Enable();
     }
@@ -16,13 +21,12 @@ public class PlayerControls : MonoBehaviour
         InputActions.FindActionMap("Player").Disable();
     }
 
-    private void Awake() {
-        moveAction = InputSystem.actions.FindAction("Move");
-        shootAction = InputSystem.actions.FindAction("Shoot");
-    }
-
     public Vector2 GetMove() {
         return moveAction.ReadValue<Vector2>();
+    }
+
+    public bool IsAiming() {
+        return shootAction.phase != InputActionPhase.Waiting;
     }
 
     public Vector2 GetShoot() {
