@@ -1,5 +1,11 @@
 using UnityEngine;
 
+public enum GameState
+{
+    MainMenu,
+    Game
+}
+
 public class GameManager : MonoBehaviour
 {
     #region Singleton Code
@@ -18,6 +24,9 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    [SerializeField]
+    private GameObject playerObject;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -28,5 +37,9 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public Vector2 GetPlayerPosition() {
+        return playerObject.transform.position;
     }
 }

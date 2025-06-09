@@ -1,27 +1,26 @@
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class EnemyMovement : MonoBehaviour
 {
-    [SerializeField]
-    private PlayerControls playerControls;
     [SerializeField]
     private float moveSpeed;
 
     private Rigidbody2D rb;
-    private Vector2 moveAmount;
 
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start() {
-
+    void Start()
+    {
+        
     }
 
     // Update is called once per frame
-    void Update() {
-        moveAmount = playerControls.GetMove();
+    void Update()
+    {
+        
     }
 
     private void FixedUpdate() {
@@ -34,8 +33,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move() {
         if(CanMove()) {
-            rb.linearVelocity = moveSpeed * Time.deltaTime * moveAmount;
+            // Get player's current position 
+            Vector3 playerPos = GameManager.instance.GetPlayerPosition();
+            Vector2 moveAmount = playerPos - transform.position;
+            moveAmount = moveSpeed * Time.deltaTime * moveAmount.normalized;
+
+            rb.linearVelocity = moveAmount;
         }
     }
 }
-
