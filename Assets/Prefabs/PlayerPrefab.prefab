@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 2998271474222249662}
   m_Layer: 0
   m_Name: PlayerPrefab
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -316,3 +316,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerControls: {fileID: 1850091344621089013}
   playerPivot: {fileID: 7450405064171236221}
+  playerHealth: 0

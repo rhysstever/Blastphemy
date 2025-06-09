@@ -6,6 +6,8 @@ public class PlayerCombat : MonoBehaviour
     private PlayerControls playerControls;
     [SerializeField]
     private GameObject playerPivot;
+    [SerializeField]
+    private float playerHealth;
 
     private Vector2 shootDirection;
     private Vector2 shootDirection1FrameAgo;
@@ -41,5 +43,15 @@ public class PlayerCombat : MonoBehaviour
 
     public void Aim(Vector2 aimDirection) {
         playerPivot.transform.up = aimDirection;
+    }
+
+    public void TakeDamage(float damage) {
+        if(damage > 0f) {
+            playerHealth -= damage;
+
+            if(playerHealth <= 0f) {
+                GameManager.instance.ChangeGameState(GameState.End);
+            }
+        }
     }
 }

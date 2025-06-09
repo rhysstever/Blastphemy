@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private bool CanMove() {
-        return true;
+        return GameManager.instance.CurrentGameState == GameState.Game;
     }
 
     private void Move() {

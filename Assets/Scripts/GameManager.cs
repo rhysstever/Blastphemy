@@ -3,7 +3,8 @@ using UnityEngine;
 public enum GameState
 {
     MainMenu,
-    Game
+    Game,
+    End
 }
 
 public class GameManager : MonoBehaviour
@@ -27,16 +28,33 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject playerObject;
 
+    private GameState currentGameState;
+
+    public GameState CurrentGameState { get { return currentGameState; } }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        ChangeGameState(GameState.Game);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void ChangeGameState(GameState newGameState) {
+        switch(newGameState) {
+            case GameState.MainMenu:
+                break;
+            case GameState.Game:
+                break;
+            case GameState.End:
+                break;
+        }
+
+        currentGameState = newGameState;
     }
 
     public Vector2 GetPlayerPosition() {

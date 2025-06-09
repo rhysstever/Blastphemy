@@ -28,12 +28,11 @@ public class EnemyMovement : MonoBehaviour
     }
 
     private bool CanMove() {
-        return true;
+        return GameManager.instance.CurrentGameState == GameState.Game;
     }
 
     private void Move() {
         if(CanMove()) {
-            // Get player's current position 
             Vector3 playerPos = GameManager.instance.GetPlayerPosition();
             Vector2 moveAmount = playerPos - transform.position;
             moveAmount = moveSpeed * Time.deltaTime * moveAmount.normalized;
