@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -349,7 +349,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 949764363}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: aimingPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -364,14 +364,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 949764362}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1871934350}
   m_Father: {fileID: 1787097491}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!1 &1476525193
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,9 +447,9 @@ GameObject:
   - component: {fileID: 1787097494}
   - component: {fileID: 1787097493}
   - component: {fileID: 1787097492}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -469,7 +469,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -601,9 +601,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 063fe82a0880ac748b2296abbe53cba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 10
+  currentHealth: 10
+  damage: 1
   playerControls: {fileID: 1787097494}
   playerPivot: {fileID: 949764362}
-  playerHealth: 10
+  baseBulletPrefab: {fileID: 8579173190883287115, guid: 1b3c7e85908e02640b09d3b7669eeb97, type: 3}
+  fireRate: 1
 --- !u!114 &1787097493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -617,7 +621,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerControls: {fileID: 1787097494}
-  moveSpeed: 200
+  moveSpeed: 5
 --- !u!114 &1787097494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -641,7 +645,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1871934350}
   - component: {fileID: 1871934351}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: aimDirection
   m_TagString: Untagged
   m_Icon: {fileID: 0}

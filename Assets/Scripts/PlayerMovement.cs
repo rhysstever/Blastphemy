@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move() {
         if(CanMove()) {
-            rb.linearVelocity = moveSpeed * Time.deltaTime * moveAmount;
+            rb.linearVelocity = moveSpeed * moveAmount;
         }
     }
 }

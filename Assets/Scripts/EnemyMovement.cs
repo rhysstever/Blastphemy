@@ -35,7 +35,7 @@ public class EnemyMovement : MonoBehaviour
         if(CanMove()) {
             Vector3 playerPos = GameManager.instance.GetPlayerPosition();
             Vector2 moveAmount = playerPos - transform.position;
-            moveAmount = moveSpeed * Time.deltaTime * moveAmount.normalized;
+            moveAmount = moveSpeed * moveAmount.normalized;
 
             rb.linearVelocity = moveAmount;
         }
