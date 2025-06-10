@@ -37,6 +37,7 @@ public class EnemyManager : MonoBehaviour
         float randomAngle = Random.Range(0, 360f);
         Vector2 newPosition = new Vector2(Mathf.Sin(randomAngle), Mathf.Cos(randomAngle));
         newPosition *= spawnRange;
+        newPosition += GameManager.instance.GetPlayerPosition();
 
         Instantiate(enemy, newPosition, Quaternion.identity, transform);
     }

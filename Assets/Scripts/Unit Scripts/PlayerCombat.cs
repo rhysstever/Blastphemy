@@ -9,16 +9,19 @@ public class PlayerCombat : UnitCombat
     [SerializeField]
     private float fireRate;
 
-    private Vector2 shootDirection, shootDirection1FrameAgo, shootDirection2FramesAgo;
+    // Use shootDirection for the direction of any projectiles to be fired forward
+    // All aimDirection variables are used for rotating the player
+    private Vector2 shootDirection, aimDirectionCurrentFrame, aimDirection1FrameAgo, aimDirection2FramesAgo;
     private float fireTimer;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start() {
         base.Start();
 
-        shootDirection = Vector2.down;
-        shootDirection1FrameAgo = Vector2.down;
-        shootDirection2FramesAgo = Vector2.down;
+        aimDirectionCurrentFrame = Vector2.down;
+        aimDirection1FrameAgo = aimDirectionCurrentFrame;
+        aimDirection2FramesAgo = aimDirectionCurrentFrame;
+        shootDirection = aimDirectionCurrentFrame;
     }
 
     // Update is called once per frame
@@ -39,30 +42,35 @@ public class PlayerCombat : UnitCombat
     private void Aim() {
         if(playerControls.IsAiming()) {
             // Get new direction
-            shootDirection = playerControls.GetShoot();
+            aimDirectionCurrentFrame = playerControls.GetShoot();
             // Aim with the previous frame's direction
-            playerPivot.transform.up = shootDirection1FrameAgo;
+            // The previous frame is used in case 2 keys are pressed at the same time to aim diagonally,
+            // the player should only aim to the diagonal and not flicker to whichever key was pressed slightly before the other
+            shootDirection = aimDirection1FrameAgo;
             // Set previous frame's direction as the previous previous frame's direction
-            shootDirection2FramesAgo = shootDirection1FrameAgo;
+            aimDirection2FramesAgo = aimDirection1FrameAgo;
             // Set new direction as new previous frame's direction
-            shootDirection1FrameAgo = shootDirection;
+            aimDirection1FrameAgo = aimDirectionCurrentFrame;
         }
         // If the player is not aiming, but recent frame directions are different
         // Ex) If the player was aiming diagonally and release both keys near-simultaneously, there would be
         // a frame with the direction of only one key down (we want to ignore this frame in this case)
-        else if(shootDirection1FrameAgo != shootDirection2FramesAgo) {
+        else if(aimDirection1FrameAgo != aimDirection2FramesAgo) {
             // Aim with the previous previous frame's direction
-            playerPivot.transform.up = shootDirection2FramesAgo;
+            shootDirection = aimDirection2FramesAgo;
             // Set the previous frame's direction to the "new" (more like recovered) direction
-            shootDirection1FrameAgo = shootDirection2FramesAgo;
+            aimDirection1FrameAgo = aimDirection2FramesAgo;
         }
+
+        // Rotate the player's aim to the proper direction
+        playerPivot.transform.up = shootDirection;
     }
 
     private void Shoot() {
         if(fireTimer >= fireRate) {
             // Spawn a bullet in the aimed direction
             Vector2 newPosition = (Vector2)transform.position + shootDirection;
-            GameObject bullet = Instantiate(baseBulletPrefab, newPosition, Quaternion.identity);
+            GameObject bullet = Instantiate(baseBulletPrefab, newPosition, Quaternion.identity, GameManager.instance.BulletsParent);
             // Set the source and velocity of the bullet
             bullet.GetComponent<Bullet>().Source = this;
             bullet.GetComponent<Rigidbody2D>().linearVelocity = shootDirection * bullet.GetComponent<Bullet>().ProjectileSpeed;
