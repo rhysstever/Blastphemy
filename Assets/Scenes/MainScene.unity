@@ -417,6 +417,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17fd898223025714eb7e757a8709c38f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletsParent: {fileID: 0}
   playerObject: {fileID: 1787097487}
 --- !u!114 &1476525196
 MonoBehaviour:
@@ -447,6 +448,7 @@ GameObject:
   - component: {fileID: 1787097494}
   - component: {fileID: 1787097493}
   - component: {fileID: 1787097492}
+  - component: {fileID: 1787097495}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -601,9 +603,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 063fe82a0880ac748b2296abbe53cba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  currentHealth: 10
   damage: 1
+  maxHealth: 10
   playerControls: {fileID: 1787097494}
   playerPivot: {fileID: 949764362}
   baseBulletPrefab: {fileID: 8579173190883287115, guid: 1b3c7e85908e02640b09d3b7669eeb97, type: 3}
@@ -635,6 +636,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InputActions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+--- !u!114 &1787097495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787097487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1529c22cee72e794d8b8ca43b27260c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chunkPrefab: {fileID: 6789055549019826818, guid: 2391dad993aece148be383a4c2440310, type: 3}
 --- !u!1 &1871934349
 GameObject:
   m_ObjectHideFlags: 0

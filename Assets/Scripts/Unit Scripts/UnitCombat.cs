@@ -18,7 +18,7 @@ public class UnitCombat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void Reset() {
@@ -29,5 +29,9 @@ public class UnitCombat : MonoBehaviour
         if(damage > 0f) {
             currentHealth -= damage;
         }
+    }
+
+    protected bool CanAct() {
+        return GameManager.instance.CurrentGameState == GameState.Game;
     }
 }

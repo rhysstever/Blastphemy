@@ -4,6 +4,7 @@ public enum GameState
 {
     MainMenu,
     Game,
+    AbilitySelect,
     End
 }
 
