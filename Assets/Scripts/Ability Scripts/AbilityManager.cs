@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class AbilityManager : MonoBehaviour
@@ -38,14 +39,44 @@ public class AbilityManager : MonoBehaviour
         }
     }
 
+    public BaseAbility GetRandomAbility(bool onlyActiveAbilities) {
+        List<BaseAbility> filteredAbilityList;
+        if(onlyActiveAbilities) {
+            filteredAbilityList = abilityList.Where(a => a.Level == 0).ToList();
+        } else {
+            filteredAbilityList = abilityList;
+        }
+
+        int randomIndex = Random.Range(0, filteredAbilityList.Count);
+        return filteredAbilityList[randomIndex];
+    }
+
+    public string GetAbilityDescription(string abilityName) {
+        BaseAbility ability = GetAbilityByName(abilityName);
+
+        if(ability != null) {
+            return ability.AbilityDescription;
+        } else {
+            return "";
+        }
+    }
+
     public void UpgradeAbility(string abilityName) {
+        BaseAbility ability = GetAbilityByName(abilityName);
+
+        if(ability != null) {
+            ability.Upgrade();
+        }
+    }
+
+    private BaseAbility GetAbilityByName(string abilityName) {
         foreach(BaseAbility ability in abilityList) {
             if(ability.AbilityName == abilityName) {
-                ability.Upgrade();
-                return;
+                return ability;
             }
         }
 
         Debug.Log(string.Format("Error! No ability named {0}", abilityName));
+        return null;
     }
 }

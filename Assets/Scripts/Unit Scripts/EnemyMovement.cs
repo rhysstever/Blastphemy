@@ -38,6 +38,8 @@ public class EnemyMovement : MonoBehaviour
             moveAmount = moveSpeed * moveAmount.normalized;
 
             rb.linearVelocity = moveAmount;
+        } else {
+            rb.linearVelocity = Vector3.zero;
         }
     }
 }

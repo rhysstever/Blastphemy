@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject playerObject;
 
+    [SerializeField]
     private GameState currentGameState;
 
     public Transform BulletParent { get { return bulletParent; } }
@@ -41,13 +42,15 @@ public class GameManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        ChangeGameState(GameState.Game);
+        ChangeGameState(GameState.MainMenu);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.Return) && currentGameState == GameState.Game) {
+            ChangeGameState(GameState.AbilitySelect);
+        }
     }
 
     public void ChangeGameState(GameState newGameState) {
@@ -56,11 +59,14 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.Game:
                 break;
+            case GameState.AbilitySelect:
+                break;
             case GameState.End:
                 break;
         }
 
         currentGameState = newGameState;
+        UIManager.instance.UpdateUIState(newGameState);
     }
 
     public Vector2 GetPlayerPosition() {
