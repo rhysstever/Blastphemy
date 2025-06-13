@@ -2,6 +2,22 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
+    #region Singleton Code
+    // A public reference to this script
+    public static EnemyManager instance = null;
+
+    // Awake is called even before start
+    private void Awake() {
+        // If the reference for this script is null, assign it this script
+        if(instance == null)
+            instance = this;
+        // If the reference is to something else (it already exists)
+        // than this is not needed, thus destroy it
+        else if(instance != this)
+            Destroy(gameObject);
+    }
+    #endregion
+
     [SerializeField]
     private float spawnRange;
     [SerializeField]
@@ -39,6 +55,6 @@ public class EnemyManager : MonoBehaviour
         newPosition *= spawnRange;
         newPosition += GameManager.instance.GetPlayerPosition();
 
-        Instantiate(enemy, newPosition, Quaternion.identity, transform);
+        Instantiate(enemy, newPosition, Quaternion.identity, GameManager.instance.EnemyParent);
     }
 }

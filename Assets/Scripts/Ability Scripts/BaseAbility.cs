@@ -3,9 +3,11 @@ using UnityEngine;
 public class BaseAbility : MonoBehaviour
 {
     protected string abilityName, abilityDescription, flavorText;
+    [SerializeField]
     protected int level;
+    [SerializeField]
     protected float range, damage, cooldown;
-
+    [SerializeField]
     protected float currentCooldownTimer;
 
     public string AbilityName { get { return abilityName; } }
@@ -32,7 +34,16 @@ public class BaseAbility : MonoBehaviour
         }
     }
 
+    public virtual bool CanCast() {
+        return GameManager.instance.CurrentGameState == GameState.Game
+            && level > 0;
+    }
+
     public virtual void Cast() {
         currentCooldownTimer = 0f;
+    }
+
+    public void Upgrade() {
+        level++;
     }
 }

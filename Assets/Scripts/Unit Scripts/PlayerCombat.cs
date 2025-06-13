@@ -62,4 +62,8 @@ public class PlayerCombat : UnitCombat
         // Rotate the player's aim to the proper direction
         playerPivot.transform.up = shootDirection;
     }
+
+    public void AddAbility(BaseAbility newAbility) {
+        
+    }
 }

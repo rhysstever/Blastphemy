@@ -372,6 +372,68 @@ Transform:
   - {fileID: 1871934350}
   m_Father: {fileID: 1787097491}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+--- !u!1 &1033043085
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1033043086}
+  m_Layer: 0
+  m_Name: BulletParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1033043086
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1033043085}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1476525194}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1235440688
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1235440689}
+  m_Layer: 0
+  m_Name: EnemyParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1235440689
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235440688}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1476525194}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1476525193
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,6 +445,7 @@ GameObject:
   - component: {fileID: 1476525194}
   - component: {fileID: 1476525195}
   - component: {fileID: 1476525196}
+  - component: {fileID: 1476525198}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -402,7 +465,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1033043086}
+  - {fileID: 1235440689}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1476525195
@@ -417,7 +482,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17fd898223025714eb7e757a8709c38f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletsParent: {fileID: 0}
+  bulletParent: {fileID: 1033043086}
+  enemyParent: {fileID: 1235440689}
   playerObject: {fileID: 1787097487}
 --- !u!114 &1476525196
 MonoBehaviour:
@@ -433,6 +499,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnRange: 22
   basicEnemyPrefab: {fileID: 8857172374913583936, guid: be40488e52851724ca445526d614094d, type: 3}
+--- !u!114 &1476525198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476525193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 965fe5a0d2c3d41469c64bd2317fd742, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityList:
+  - {fileID: 1787097495}
 --- !u!1 &1787097487
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,8 +687,6 @@ MonoBehaviour:
   maxHealth: 10
   playerControls: {fileID: 1787097494}
   playerPivot: {fileID: 949764362}
-  baseBulletPrefab: {fileID: 8579173190883287115, guid: 1b3c7e85908e02640b09d3b7669eeb97, type: 3}
-  fireRate: 1
 --- !u!114 &1787097493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -648,6 +726,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1529c22cee72e794d8b8ca43b27260c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 0
+  range: 0
+  damage: 0
+  cooldown: 0
+  currentCooldownTimer: 0
   chunkPrefab: {fileID: 6789055549019826818, guid: 2391dad993aece148be383a4c2440310, type: 3}
 --- !u!1 &1871934349
 GameObject:

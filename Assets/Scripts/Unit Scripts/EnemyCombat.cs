@@ -2,16 +2,27 @@ using UnityEngine;
 
 public class EnemyCombat : UnitCombat
 {
+    [SerializeField]
+    private float damage, attackRate;
+
+    private float currentAttackTimer;
+
+    public float Damage { get { return damage; } }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
         base.Start();
+
+        currentAttackTimer = 0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if(GameManager.instance.CurrentGameState == GameState.Game) {
+            currentAttackTimer += Time.deltaTime;
+        }
     }
 
     public override void TakeDamage(float damage) {
@@ -22,9 +33,12 @@ public class EnemyCombat : UnitCombat
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
+    private void OnCollisionStay2D(Collision2D collision) {
         if(collision.gameObject.CompareTag("Player")) {
-            collision.gameObject.GetComponent<PlayerCombat>().TakeDamage(damage);
+            if(currentAttackTimer >= attackRate) {
+                collision.gameObject.GetComponent<PlayerCombat>().TakeDamage(damage);
+                currentAttackTimer = 0f;
+            }
         }
     }
 }
