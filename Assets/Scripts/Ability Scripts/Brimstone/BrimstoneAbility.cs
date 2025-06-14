@@ -41,7 +41,7 @@ public class BrimstoneAbility : BaseAbility
             base.Cast();
 
             for(int i = 0; i < chunks; i++) {
-                StartCoroutine(SpawnChunk((i + 1) * chunkSpawnDelay));
+                StartCoroutine(SpawnChunk(i * chunkSpawnDelay));
             }
         }
     }

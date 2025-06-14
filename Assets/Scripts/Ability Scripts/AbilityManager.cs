@@ -5,6 +5,7 @@ using UnityEngine;
 public enum Ability
 {
     Brimstone,
+    Immolation,
     Purge
 }
 
@@ -27,7 +28,7 @@ public class AbilityManager : MonoBehaviour
     #endregion
 
     [SerializeField]
-    private BaseAbility brimstoneAbility, purgeAbility;
+    private BaseAbility brimstoneAbility, immolationAbility, purgeAbility;
 
     private Dictionary<Ability, BaseAbility> abilityMap;
 
@@ -36,17 +37,20 @@ public class AbilityManager : MonoBehaviour
     {
         abilityMap = new Dictionary<Ability, BaseAbility>();
         abilityMap.Add(Ability.Brimstone, brimstoneAbility);
+        abilityMap.Add(Ability.Immolation, immolationAbility);
         abilityMap.Add(Ability.Purge, purgeAbility);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if(Input.GetKeyDown(KeyCode.Return)) {
-        //    UpgradeAbility(Ability.Brimstone);
-        //} else if(Input.GetKeyDown(KeyCode.Space)) {
-        //    UpgradeAbility(Ability.Purge);
-        //}
+        if(Input.GetKeyDown(KeyCode.B)) {
+            UpgradeAbility(Ability.Brimstone);
+        } else if(Input.GetKeyDown(KeyCode.I)) {
+            UpgradeAbility(Ability.Immolation);
+        } else if(Input.GetKeyDown(KeyCode.P)) {
+            UpgradeAbility(Ability.Purge);
+        }
     }
 
     public BaseAbility GetAbility(Ability ability) {
