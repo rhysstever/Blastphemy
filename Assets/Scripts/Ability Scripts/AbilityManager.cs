@@ -42,30 +42,39 @@ public class AbilityManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Return)) {
-            UpgradeAbility(Ability.Brimstone);
-        } else if(Input.GetKeyDown(KeyCode.Space)) {
-            UpgradeAbility(Ability.Purge);
-        }
+        //if(Input.GetKeyDown(KeyCode.Return)) {
+        //    UpgradeAbility(Ability.Brimstone);
+        //} else if(Input.GetKeyDown(KeyCode.Space)) {
+        //    UpgradeAbility(Ability.Purge);
+        //}
     }
 
     public BaseAbility GetAbility(Ability ability) {
         return abilityMap[ability];
     }
 
-    public BaseAbility GetRandomAbility(bool onlyActiveAbilities) {
-        List<BaseAbility> filteredAbilityList;
-        if(onlyActiveAbilities) {
-            filteredAbilityList = abilityMap.Values.Where(a => a.Level == 0).ToList();
-        } else {
-            filteredAbilityList = abilityMap.Values.ToList();
-        }
-
-        int randomIndex = Random.Range(0, filteredAbilityList.Count);
-        return filteredAbilityList[randomIndex];
-    }
-
     public void UpgradeAbility(Ability abilityType) {
         abilityMap[abilityType].Upgrade();
+    }
+
+    public List<BaseAbility> GetRandomAbilities(int numberOfAbilities) {
+        List<BaseAbility> baseAbilities = new List<BaseAbility>();
+        List<BaseAbility> remainingAbilties = abilityMap.Values.ToList();
+
+        for(int i = 0; i < numberOfAbilities; i++) { 
+            if(remainingAbilties.Count > 0) {
+                // If there are still unique abilities left, get a random one
+                int randomIndex = Random.Range(0, remainingAbilties.Count);
+                BaseAbility randomAbility = remainingAbilties[randomIndex];
+                baseAbilities.Add(randomAbility);
+                // Remove it from being selected again
+                remainingAbilties.Remove(randomAbility);
+            } else {
+                // If there are no more unique abilities, provide the first ability
+                baseAbilities.Add(abilityMap.Values.ToList()[0]);
+            }
+        }
+
+        return baseAbilities;
     }
 }

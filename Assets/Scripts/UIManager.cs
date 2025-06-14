@@ -81,13 +81,12 @@ public class UIManager : MonoBehaviour
     }
 
     private void UpdateAbilitySelects() {
-        for(int i = 0; i < abilityNames.Count; i++) {
-            // Get random ability
-            BaseAbility randomAbility = AbilityManager.instance.GetRandomAbility(false);
+        List<BaseAbility> randomAbilties = AbilityManager.instance.GetRandomAbilities(3);
 
-            abilityNames[i].text = randomAbility.AbilityName;
-            abilityDescriptions[i].text = randomAbility.AbilityDescription;
-            abilityFlavorTexts[i].text = randomAbility.FlavorText;
+        for(int i = 0; i < abilityNames.Count; i++) {
+            abilityNames[i].text = randomAbilties[i].AbilityName;
+            abilityDescriptions[i].text = randomAbilties[i].AbilityDescription;
+            abilityFlavorTexts[i].text = randomAbilties[i].FlavorText;
         }
     }
 }
