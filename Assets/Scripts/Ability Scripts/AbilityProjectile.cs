@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BrimstoneChunk : MonoBehaviour
+public class AbilityProjectile : MonoBehaviour
 {
     private float damage, lifeSpan, currentLifeSpan;
 
@@ -16,7 +16,7 @@ public class BrimstoneChunk : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.instance.CurrentGameState == GameState.Game) {
+        if(GameManager.instance.CurrentMenuState == MenuState.Game) {
             currentLifeSpan += Time.deltaTime;
 
             if(currentLifeSpan >= lifeSpan) {

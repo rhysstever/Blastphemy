@@ -30,6 +30,6 @@ public class UnitCombat : MonoBehaviour
     }
 
     protected bool CanAct() {
-        return GameManager.instance.CurrentGameState == GameState.Game;
+        return GameManager.instance.CurrentMenuState == MenuState.Game;
     }
 }

@@ -2,6 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+enum Ability
+{
+    Brimstone,
+    Purge
+}
+
 public class AbilityManager : MonoBehaviour
 {
     #region Singleton Code
@@ -23,12 +29,14 @@ public class AbilityManager : MonoBehaviour
     [SerializeField]
     private List<BaseAbility> abilityList;
 
+    private Dictionary<Ability, BaseAbility> abilityMap;
+
     public List<BaseAbility> AbilityList { get { return abilityList; } }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        abilityMap = new Dictionary<Ability, BaseAbility>();
     }
 
     // Update is called once per frame

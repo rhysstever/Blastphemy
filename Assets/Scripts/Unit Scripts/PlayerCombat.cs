@@ -11,6 +11,8 @@ public class PlayerCombat : UnitCombat
     // All aimDirection variables are used for rotating the player
     private Vector2 shootDirection, aimDirectionCurrentFrame, aimDirection1FrameAgo, aimDirection2FramesAgo;
 
+    public Vector2 ShootDirection { get { return shootDirection; } }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start() {
         base.Start();
@@ -32,7 +34,7 @@ public class PlayerCombat : UnitCombat
         base.TakeDamage(damage);
 
         if(currentHealth <= 0f) {
-            GameManager.instance.ChangeGameState(GameState.End);
+            GameManager.instance.ChangeMenuState(MenuState.End);
         }
     }
 

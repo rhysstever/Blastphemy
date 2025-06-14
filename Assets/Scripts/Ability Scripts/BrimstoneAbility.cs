@@ -7,8 +7,9 @@ public class BrimstoneAbility : BaseAbility
     private GameObject chunkPrefab;
 
     private int chunks;
-    private float chunkSpawnDelay, chunkLifeSpan;
+    private float range, chunkSpawnDelay, chunkLifeSpan;
 
+    public float Range { get { return range; } }
     public float ChunkLifeSpan { get { return chunkLifeSpan; } }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -18,30 +19,22 @@ public class BrimstoneAbility : BaseAbility
         abilityDescription = "Rain large chunks of fire that deal area damage around you.";
         flavorText = "Upon the wicked he shall rain snares, fire and brimstone, and an horrible tempest: this shall be the portion of their cup. - Psalm 11:6";
 
-        level = 0;
-        range = 8f;
         damage = 2f;
         cooldown = 7f;
 
         chunks = 3;
+        range = 8f;
         chunkSpawnDelay = 0.5f;
         chunkLifeSpan = 2f;
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
-        if(CanCast()) {
-            currentCooldownTimer += Time.deltaTime;
-
-            if(currentCooldownTimer >= cooldown) {
-                Cast();
-            }
-        }
+        base.Update();
     }
 
     public override void Cast() {
-        
         base.Cast();
 
         for(int i = 0; i < chunks; i++) {

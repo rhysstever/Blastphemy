@@ -20,7 +20,7 @@ public class EnemyCombat : UnitCombat
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.instance.CurrentGameState == GameState.Game) {
+        if(GameManager.instance.CurrentMenuState == MenuState.Game) {
             currentAttackTimer += Time.deltaTime;
         }
     }

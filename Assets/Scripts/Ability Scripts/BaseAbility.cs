@@ -6,7 +6,7 @@ public class BaseAbility : MonoBehaviour
     [SerializeField]
     protected int level;
     [SerializeField]
-    protected float range, damage, cooldown;
+    protected float damage, cooldown;
     [SerializeField]
     protected float currentCooldownTimer;
 
@@ -19,13 +19,14 @@ public class BaseAbility : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        level = 0;
         currentCooldownTimer = 0f;
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
-        if(GameManager.instance.CurrentGameState == GameState.Game) {
+        if(GameManager.instance.CurrentMenuState == MenuState.Game) {
             currentCooldownTimer += Time.deltaTime;
 
             if(currentCooldownTimer >= cooldown) {
@@ -35,7 +36,7 @@ public class BaseAbility : MonoBehaviour
     }
 
     public virtual bool CanCast() {
-        return GameManager.instance.CurrentGameState == GameState.Game
+        return GameManager.instance.CurrentMenuState == MenuState.Game
             && level > 0;
     }
 

@@ -22,11 +22,11 @@ public class UIManager : MonoBehaviour
     #endregion
 
     [SerializeField]
-    private GameObject mainMenuUIParent, gameUIParent, abilitySelectUIParent, endUIParent;
+    private GameObject mainMenuUIParent, gameUIParent, abilitySelectUIParent, pauseUIParent, endUIParent;
     [SerializeField]
-    private Button mainMenuToGameButton;
+    private Button mainMenuToGameButton, pauseToGameButton, pauseToMainMenuButton;
     [SerializeField]
-    private List<TMP_Text> abilityNames, abilityDescriptions;
+    private List<TMP_Text> abilityNames, abilityDescriptions, abilityFlavorTexts;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -40,20 +40,26 @@ public class UIManager : MonoBehaviour
         
     }
 
-    public void UpdateUIState(GameState newGameState) {
-        switch(newGameState) {
-            case GameState.MainMenu:
+    public void UpdateUIState(MenuState newMenuState) {
+        switch(newMenuState) {
+            case MenuState.MainMenu:
                 Reset();
                 break;
-            case GameState.Game:
+            case MenuState.Game:
                 mainMenuUIParent.SetActive(false);
+                abilitySelectUIParent.SetActive(false);
+                pauseUIParent.SetActive(false);
                 gameUIParent.SetActive(true);
                 break;
-            case GameState.AbilitySelect:
+            case MenuState.AbilitySelect:
                 abilitySelectUIParent.SetActive(true);
+                pauseUIParent.SetActive(false);
                 UpdateAbilitySelects();
                 break;
-            case GameState.End:
+            case MenuState.Pause:
+                pauseUIParent.SetActive(true);
+                break;
+            case MenuState.End:
                 gameUIParent.SetActive(false);
                 endUIParent.SetActive(true);
                 break;
@@ -61,13 +67,16 @@ public class UIManager : MonoBehaviour
     }
 
     private void SetupButtons() {
-        mainMenuToGameButton.onClick.AddListener(() => { GameManager.instance.ChangeGameState(GameState.Game); });
+        mainMenuToGameButton.onClick.AddListener(() => { GameManager.instance.ChangeMenuState(MenuState.Game); });
+        pauseToGameButton.onClick.AddListener(() => { GameManager.instance.ChangeMenuState(MenuState.Game); });
+        pauseToMainMenuButton.onClick.AddListener(() => { GameManager.instance.ChangeMenuState(MenuState.MainMenu); });
     }
 
     private void Reset() {
         mainMenuUIParent.SetActive(true);
         gameUIParent.SetActive(false);
         abilitySelectUIParent.SetActive(false);
+        pauseUIParent.SetActive(false);
         endUIParent.SetActive(false);
     }
 
@@ -77,10 +86,8 @@ public class UIManager : MonoBehaviour
             BaseAbility randomAbility = AbilityManager.instance.GetRandomAbility(false);
 
             abilityNames[i].text = randomAbility.AbilityName;
-            abilityDescriptions[i].text = string.Format(
-                    "{0}\n\n{1}",
-                    randomAbility.AbilityDescription,
-                    randomAbility.FlavorText);
+            abilityDescriptions[i].text = randomAbility.AbilityDescription;
+            abilityFlavorTexts[i].text = randomAbility.FlavorText;
         }
     }
 }

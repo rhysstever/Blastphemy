@@ -6,11 +6,12 @@ public class PlayerControls : MonoBehaviour
     [SerializeField]
     private InputActionAsset InputActions;
 
-    private InputAction moveAction, shootAction;
+    private InputAction moveAction, shootAction, pauseAction;
 
     private void Awake() {
         moveAction = InputSystem.actions.FindAction("Move");
         shootAction = InputSystem.actions.FindAction("Shoot");
+        pauseAction = InputSystem.actions.FindAction("Pause");
     }
 
     private void OnEnable() {
@@ -31,5 +32,9 @@ public class PlayerControls : MonoBehaviour
 
     public Vector2 GetShoot() {
         return shootAction.ReadValue<Vector2>();
+    }
+
+    public bool IsPauseClicked() {
+        return pauseAction.triggered;
     }
 }

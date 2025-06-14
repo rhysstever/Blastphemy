@@ -39,7 +39,7 @@ public class EnemyManager : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        if(GameManager.instance.CurrentGameState == GameState.Game) {
+        if(GameManager.instance.CurrentMenuState == MenuState.Game) {
             currentSpawnTimer += Time.deltaTime;
 
             if(currentSpawnTimer >= spawnTimer) {
