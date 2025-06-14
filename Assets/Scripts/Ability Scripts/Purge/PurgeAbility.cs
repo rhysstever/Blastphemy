@@ -7,9 +7,13 @@ public class PurgeAbility : BaseAbility
 
     private float boltProjectileSpeed, boltLifeSpan;
 
+    public float BoltLifeSpan { get { return boltLifeSpan; } }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         abilityName = "Purge";
         abilityDescription = "Shoot a bolt forward, damaging .";
         flavorText = "I will purge out from among you the rebels and those who transgress against me. - Ezekiel 20:38";
@@ -17,20 +21,21 @@ public class PurgeAbility : BaseAbility
         damage = 1f;
         cooldown = 1f;
 
-        boltProjectileSpeed = 60f;
+        boltProjectileSpeed = 50f;
         boltLifeSpan = 10f;
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
-        
+        base.Update();
     }
 
     public override void Cast() {
-        base.Cast();
-
-        SpawnBolt();
+        if(CanCast()) {
+            base.Cast();
+            SpawnBolt();
+        }
     }
 
     private void SpawnBolt() {

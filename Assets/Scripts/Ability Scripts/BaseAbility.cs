@@ -3,12 +3,8 @@ using UnityEngine;
 public class BaseAbility : MonoBehaviour
 {
     protected string abilityName, abilityDescription, flavorText;
-    [SerializeField]
     protected int level;
-    [SerializeField]
-    protected float damage, cooldown;
-    [SerializeField]
-    protected float currentCooldownTimer;
+    protected float damage, cooldown, currentCooldownTimer;
 
     public string AbilityName { get { return abilityName; } }
     public string AbilityDescription { get { return abilityDescription; } }
@@ -17,7 +13,7 @@ public class BaseAbility : MonoBehaviour
     public float Damage { get { return damage; } }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected virtual void Start()
     {
         level = 0;
         currentCooldownTimer = 0f;
@@ -26,7 +22,7 @@ public class BaseAbility : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        if(GameManager.instance.CurrentMenuState == MenuState.Game) {
+        if(CanCast()) {
             currentCooldownTimer += Time.deltaTime;
 
             if(currentCooldownTimer >= cooldown) {
@@ -44,7 +40,7 @@ public class BaseAbility : MonoBehaviour
         currentCooldownTimer = 0f;
     }
 
-    public void Upgrade() {
+    public virtual void Upgrade() {
         level++;
     }
 }

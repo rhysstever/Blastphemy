@@ -2842,8 +2842,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 965fe5a0d2c3d41469c64bd2317fd742, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityList:
-  - {fileID: 1787097495}
+  brimstoneAbility: {fileID: 1787097495}
+  purgeAbility: {fileID: 1787097496}
 --- !u!114 &1476525199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2892,6 +2892,7 @@ GameObject:
   - component: {fileID: 1787097493}
   - component: {fileID: 1787097492}
   - component: {fileID: 1787097495}
+  - component: {fileID: 1787097496}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -3090,11 +3091,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 0
-  range: 0
   damage: 0
   cooldown: 0
   currentCooldownTimer: 0
   chunkPrefab: {fileID: 6789055549019826818, guid: 2391dad993aece148be383a4c2440310, type: 3}
+--- !u!114 &1787097496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787097487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bae14b9a856a65149a7e3ee32159bcdd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level: 0
+  damage: 0
+  cooldown: 0
+  currentCooldownTimer: 0
+  purgeBoltPrefab: {fileID: 6789055549019826818, guid: 1bc766e5d697d6c4182ea2819293c2c2, type: 3}
 --- !u!1 &1871934349
 GameObject:
   m_ObjectHideFlags: 0

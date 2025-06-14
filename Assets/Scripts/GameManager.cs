@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviour
 
     public Transform BulletParent { get { return bulletParent; } }
     public Transform EnemyParent { get { return enemyParent;  } }
-    public GameObject PlayerObject { get { return playerObject;} }
     public MenuState CurrentMenuState { get { return menuStates.Peek(); } }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

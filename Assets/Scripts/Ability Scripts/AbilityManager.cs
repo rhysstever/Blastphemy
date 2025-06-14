@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-enum Ability
+public enum Ability
 {
     Brimstone,
     Purge
@@ -27,64 +27,45 @@ public class AbilityManager : MonoBehaviour
     #endregion
 
     [SerializeField]
-    private List<BaseAbility> abilityList;
+    private BaseAbility brimstoneAbility, purgeAbility;
 
     private Dictionary<Ability, BaseAbility> abilityMap;
-
-    public List<BaseAbility> AbilityList { get { return abilityList; } }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         abilityMap = new Dictionary<Ability, BaseAbility>();
+        abilityMap.Add(Ability.Brimstone, brimstoneAbility);
+        abilityMap.Add(Ability.Purge, purgeAbility);
     }
 
     // Update is called once per frame
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Return)) {
-            UpgradeAbility("Brimstone");
+            UpgradeAbility(Ability.Brimstone);
+        } else if(Input.GetKeyDown(KeyCode.Space)) {
+            UpgradeAbility(Ability.Purge);
         }
+    }
+
+    public BaseAbility GetAbility(Ability ability) {
+        return abilityMap[ability];
     }
 
     public BaseAbility GetRandomAbility(bool onlyActiveAbilities) {
         List<BaseAbility> filteredAbilityList;
         if(onlyActiveAbilities) {
-            filteredAbilityList = abilityList.Where(a => a.Level == 0).ToList();
+            filteredAbilityList = abilityMap.Values.Where(a => a.Level == 0).ToList();
         } else {
-            filteredAbilityList = abilityList;
+            filteredAbilityList = abilityMap.Values.ToList();
         }
 
         int randomIndex = Random.Range(0, filteredAbilityList.Count);
         return filteredAbilityList[randomIndex];
     }
 
-    public string GetAbilityDescription(string abilityName) {
-        BaseAbility ability = GetAbilityByName(abilityName);
-
-        if(ability != null) {
-            return ability.AbilityDescription;
-        } else {
-            return "";
-        }
-    }
-
-    public void UpgradeAbility(string abilityName) {
-        BaseAbility ability = GetAbilityByName(abilityName);
-
-        if(ability != null) {
-            ability.Upgrade();
-        }
-    }
-
-    private BaseAbility GetAbilityByName(string abilityName) {
-        foreach(BaseAbility ability in abilityList) {
-            if(ability.AbilityName == abilityName) {
-                return ability;
-            }
-        }
-
-        Debug.Log(string.Format("Error! No ability named {0}", abilityName));
-        return null;
+    public void UpgradeAbility(Ability abilityType) {
+        abilityMap[abilityType].Upgrade();
     }
 }
