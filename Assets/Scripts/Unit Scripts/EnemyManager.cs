@@ -19,11 +19,15 @@ public class EnemyManager : MonoBehaviour
     #endregion
 
     [SerializeField]
+    private Transform enemyParent;
+    [SerializeField]
     private float spawnRange;
     [SerializeField]
     private GameObject basicEnemyPrefab;
 
     private float spawnTimer, currentSpawnTimer;
+
+    public Transform EnemyParent { get { return enemyParent; } }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -55,6 +59,6 @@ public class EnemyManager : MonoBehaviour
         newPosition *= spawnRange;
         newPosition += GameManager.instance.GetPlayerPosition();
 
-        Instantiate(enemy, newPosition, Quaternion.identity, GameManager.instance.EnemyParent);
+        Instantiate(enemy, newPosition, Quaternion.identity, enemyParent);
     }
 }

@@ -29,14 +29,13 @@ public class GameManager : MonoBehaviour
     #endregion
 
     [SerializeField]
-    private Transform bulletParent, enemyParent;
+    private Transform bulletParent;
     [SerializeField]
     private GameObject playerObject;
 
     private Stack<MenuState> menuStates;
 
     public Transform BulletParent { get { return bulletParent; } }
-    public Transform EnemyParent { get { return enemyParent;  } }
     public MenuState CurrentMenuState { get { return menuStates.Peek(); } }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

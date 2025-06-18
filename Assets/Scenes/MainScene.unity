@@ -2814,7 +2814,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletParent: {fileID: 1033043086}
-  enemyParent: {fileID: 1235440689}
   playerObject: {fileID: 1787097487}
 --- !u!114 &1476525196
 MonoBehaviour:
@@ -2828,6 +2827,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1f7b99738a15e44bbc8500fecfcd501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyParent: {fileID: 1235440689}
   spawnRange: 22
   basicEnemyPrefab: {fileID: 8857172374913583936, guid: be40488e52851724ca445526d614094d, type: 3}
 --- !u!114 &1476525198
