@@ -48,9 +48,9 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if(Input.GetKeyDown(KeyCode.Return) && menuStates.Peek() == MenuState.Game) {
-        //    ChangeMenuState(MenuState.AbilitySelect);
-        //}
+        if(Input.GetKeyDown(KeyCode.Return) && menuStates.Peek() == MenuState.Game) {
+            ChangeMenuState(MenuState.AbilitySelect);
+        }
 
         UpdateMenuState(menuStates.Peek());
     }
@@ -58,9 +58,18 @@ public class GameManager : MonoBehaviour
     public void ChangeMenuState(MenuState newMenuState) {
         switch(newMenuState) {
             case MenuState.MainMenu:
+                ShowPlayer(false);
                 menuStates.Clear();
                 break;
             case MenuState.Game:
+                ShowPlayer(true);
+
+                // If this is the start of the game, trigger the first ability select screen
+                if(menuStates.Peek() == MenuState.MainMenu) {
+                    AbilityManager.instance.AddXP(0);
+                    return;
+                }
+
                 menuStates.Clear();
                 break;
             case MenuState.AbilitySelect:
@@ -68,6 +77,7 @@ public class GameManager : MonoBehaviour
             case MenuState.Pause:
                 break;
             case MenuState.End:
+                ShowPlayer(false);
                 menuStates.Clear();
                 break;
         }
@@ -116,5 +126,10 @@ public class GameManager : MonoBehaviour
 
     public Vector2 GetPlayerAim() {
         return playerObject.GetComponent<PlayerCombat>().ShootDirection;
+    }
+
+    private void ShowPlayer(bool show) { 
+        playerObject.GetComponent<SpriteRenderer>().enabled = show;
+        playerObject.transform.GetChild(0).gameObject.SetActive(show);
     }
 }

@@ -16,6 +16,7 @@ public class ImmolationAbility : BaseAbility
     {
         base.Start();
 
+        abilityType = Ability.Immolation;
         abilityName = "Immolation";
         abilityDescription = "Shoot columns of fire on either side of you";
         flavorText = "Who maketh his angels spirits; his ministers a flaming fire. - Psalms 104:4";

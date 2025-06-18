@@ -26,6 +26,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Button mainMenuToGameButton, pauseToGameButton, pauseToMainMenuButton;
     [SerializeField]
+    private List<Button> abilitySelectButtons;
+    [SerializeField]
     private List<TMP_Text> abilityNames, abilityDescriptions, abilityFlavorTexts;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -52,6 +54,7 @@ public class UIManager : MonoBehaviour
                 gameUIParent.SetActive(true);
                 break;
             case MenuState.AbilitySelect:
+                mainMenuUIParent.SetActive(false);  // Needed for inital play
                 abilitySelectUIParent.SetActive(true);
                 pauseUIParent.SetActive(false);
                 UpdateAbilitySelects();
@@ -87,6 +90,15 @@ public class UIManager : MonoBehaviour
             abilityNames[i].text = randomAbilties[i].AbilityName;
             abilityDescriptions[i].text = randomAbilties[i].AbilityDescription;
             abilityFlavorTexts[i].text = randomAbilties[i].FlavorText;
+
+            Ability abilityType = randomAbilties[i].AbilityType;
+
+            // Setup corresponding button
+            abilitySelectButtons[i].onClick.RemoveAllListeners();
+            abilitySelectButtons[i].onClick.AddListener(() => { 
+                AbilityManager.instance.UpgradeAbility(abilityType); 
+                GameManager.instance.ChangeMenuState(MenuState.Game);
+            });
         }
     }
 }

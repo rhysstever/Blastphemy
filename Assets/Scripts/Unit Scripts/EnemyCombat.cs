@@ -3,7 +3,7 @@ using UnityEngine;
 public class EnemyCombat : UnitCombat
 {
     [SerializeField]
-    private float damage, attackRate;
+    private float damage, attackRate, xpWorth;
 
     private float currentAttackTimer;
 
@@ -29,6 +29,7 @@ public class EnemyCombat : UnitCombat
         base.TakeDamage(damage);
 
         if(currentHealth <= 0f) {
+            AbilityManager.instance.AddXP(xpWorth);
             Destroy(gameObject);
         }
     }

@@ -14,6 +14,7 @@ public class PurgeAbility : BaseAbility
     {
         base.Start();
 
+        abilityType = Ability.Purge;
         abilityName = "Purge";
         abilityDescription = "Shoot a bolt forward, damaging .";
         flavorText = "I will purge out from among you the rebels and those who transgress against me. - Ezekiel 20:38";

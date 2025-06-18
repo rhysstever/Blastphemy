@@ -11,12 +11,13 @@ public class ApocalypseAbility : BaseAbility
     {
         base.Start();
 
+        abilityType = Ability.Apocalypse;
         abilityName = "Apocalypse";
-        abilityDescription = "Strike all nearby enemies with a bolt of lightning";
+        abilityDescription = "Strike all nearby enemies with lightning";
         flavorText = "QUOTE NEEDED";
 
-        damage = 1f;
-        cooldown = 13f;
+        damage = 2f;
+        cooldown = 20f;
 
         range = 20f;
     }

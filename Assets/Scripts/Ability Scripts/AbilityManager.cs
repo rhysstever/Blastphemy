@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum Ability
 {
+    Apocalypse,
     Brimstone,
     Immolation,
     Purge
@@ -28,29 +29,38 @@ public class AbilityManager : MonoBehaviour
     #endregion
 
     [SerializeField]
-    private BaseAbility brimstoneAbility, immolationAbility, purgeAbility;
+    private BaseAbility apocalypseAbility, brimstoneAbility, immolationAbility, purgeAbility;
 
     private Dictionary<Ability, BaseAbility> abilityMap;
+
+    private int currentLevel;
+    private float currentXP;
+    private List<float> xpNeededForNextLevel;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         abilityMap = new Dictionary<Ability, BaseAbility>();
+        abilityMap.Add(Ability.Apocalypse, apocalypseAbility);
         abilityMap.Add(Ability.Brimstone, brimstoneAbility);
         abilityMap.Add(Ability.Immolation, immolationAbility);
         abilityMap.Add(Ability.Purge, purgeAbility);
+
+        currentLevel = 0;
+        currentXP = 0;
+        xpNeededForNextLevel = new List<float>();
+        xpNeededForNextLevel.Add(0);
+        xpNeededForNextLevel.Add(30);
+        xpNeededForNextLevel.Add(60);
+        xpNeededForNextLevel.Add(120);
+        xpNeededForNextLevel.Add(200);
+        xpNeededForNextLevel.Add(350);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.B)) {
-            UpgradeAbility(Ability.Brimstone);
-        } else if(Input.GetKeyDown(KeyCode.I)) {
-            UpgradeAbility(Ability.Immolation);
-        } else if(Input.GetKeyDown(KeyCode.P)) {
-            UpgradeAbility(Ability.Purge);
-        }
+        
     }
 
     public BaseAbility GetAbility(Ability ability) {
@@ -80,5 +90,23 @@ public class AbilityManager : MonoBehaviour
         }
 
         return baseAbilities;
+    }
+
+    public void AddXP(float xp) {
+        if(xp >= 0f) {
+            currentXP += xp;
+
+            CheckLevelUp();
+        }
+    }
+
+    private void CheckLevelUp() {
+        float xpForNextLevel = xpNeededForNextLevel[currentLevel];
+
+        if(currentXP >= xpForNextLevel) {
+            currentXP -= xpForNextLevel;
+            GameManager.instance.ChangeMenuState(MenuState.AbilitySelect);
+            currentLevel++;
+        }
     }
 }
