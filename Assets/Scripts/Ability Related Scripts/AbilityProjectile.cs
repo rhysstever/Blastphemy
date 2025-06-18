@@ -3,8 +3,8 @@ using UnityEngine;
 public class AbilityProjectile : MonoBehaviour
 {
     protected Rigidbody2D rb;
-    protected float damage, lifeSpan, currentLifeSpan;
     protected Vector2 velocity;
+    protected float damage, lifeSpan, currentLifeSpan;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()

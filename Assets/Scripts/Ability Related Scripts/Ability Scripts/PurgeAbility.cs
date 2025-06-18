@@ -7,6 +7,7 @@ public class PurgeAbility : BaseAbility
 
     private float boltProjectileSpeed, boltLifeSpan;
 
+    public float BoltProjectileSpeed { get { return boltProjectileSpeed; } }
     public float BoltLifeSpan { get { return boltLifeSpan; } }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -22,7 +23,7 @@ public class PurgeAbility : BaseAbility
         damage = 1f;
         cooldown = 1f;
 
-        boltProjectileSpeed = 50f;
+        boltProjectileSpeed = 13f;
         boltLifeSpan = 10f;
     }
 
@@ -43,6 +44,6 @@ public class PurgeAbility : BaseAbility
         Vector2 newPosition = GameManager.instance.GetPlayerPosition() + GameManager.instance.GetPlayerAim();
 
         GameObject newBolt = Instantiate(purgeBoltPrefab, newPosition, Quaternion.identity, GameManager.instance.BulletParent);
-        newBolt.GetComponent<Rigidbody2D>().linearVelocity = GameManager.instance.GetPlayerAim() * boltProjectileSpeed;
+        newBolt.GetComponent<PurgeBolt>().SetVelocity(GameManager.instance.GetPlayerAim() * boltProjectileSpeed);
     }
 }

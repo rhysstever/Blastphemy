@@ -9,6 +9,7 @@ public class ImmolationAbility : BaseAbility
     private int flames;
     private float flameProjectileSpeed, flameSpawnDelay, flameLifeSpan;
 
+    public float FlameProjectileSpeed { get { return flameProjectileSpeed; } }
     public float FlameLifeSpan { get { return flameLifeSpan; } }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -25,7 +26,7 @@ public class ImmolationAbility : BaseAbility
         cooldown = 10f;
 
         flames = 8;
-        flameProjectileSpeed = 12f;
+        flameProjectileSpeed = 10f;
         flameSpawnDelay = 0.25f;
         flameLifeSpan = 5f;
     }
@@ -54,11 +55,11 @@ public class ImmolationAbility : BaseAbility
         Vector2 leftAimDirection = new Vector2(playerAim.y, -playerAim.x);
         Vector2 positionLeftFlame = (Vector2)transform.position + leftAimDirection;
         GameObject newLeftFlame = Instantiate(flamePrefab, positionLeftFlame, Quaternion.identity, GameManager.instance.BulletParent);
-        newLeftFlame.GetComponent<Rigidbody2D>().linearVelocity = leftAimDirection * flameProjectileSpeed;
+        newLeftFlame.GetComponent<ImmolationFlame>().SetVelocity(leftAimDirection * flameProjectileSpeed);
 
         Vector2 rightAimDirection = new Vector2(-playerAim.y, playerAim.x);
         Vector2 positionRightFlame = (Vector2)transform.position + rightAimDirection;
         GameObject newRightFlame = Instantiate(flamePrefab, positionRightFlame, Quaternion.identity, GameManager.instance.BulletParent);
-        newRightFlame.GetComponent<Rigidbody2D>().linearVelocity = rightAimDirection * flameProjectileSpeed;
+        newRightFlame.GetComponent<ImmolationFlame>().SetVelocity(rightAimDirection * flameProjectileSpeed);
     }
 }
