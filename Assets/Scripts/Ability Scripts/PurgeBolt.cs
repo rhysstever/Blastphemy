@@ -1,30 +1,25 @@
 using UnityEngine;
 
-public class PurgeBolt : MonoBehaviour
+public class PurgeBolt : AbilityProjectile
 {
-    private float damage, lifeSpan, currentLifeSpan;
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start() {
+    protected override void Start() 
+    {
+        base.Start();
+
         PurgeAbility purgeAbility = AbilityManager.instance.GetAbility(Ability.Purge) as PurgeAbility;
         damage = purgeAbility.Damage;
         lifeSpan = purgeAbility.BoltLifeSpan;
-        currentLifeSpan = 0f;
     }
 
     // Update is called once per frame
-    void Update() {
-        if(GameManager.instance.CurrentMenuState == MenuState.Game) {
-            currentLifeSpan += Time.deltaTime;
-
-            if(currentLifeSpan >= lifeSpan) {
-                Destroy(gameObject);
-            }
-        }
+    protected override void Update() 
+    {
+        base.Update();
     }
 
     private void OnTriggerEnter2D(Collider2D collider) {
-        if(collider.gameObject.tag == "Enemy") {
+        if(collider.gameObject.CompareTag("Enemy")) {
             collider.gameObject.GetComponent<EnemyCombat>().TakeDamage(damage);
             Destroy(gameObject);
         }

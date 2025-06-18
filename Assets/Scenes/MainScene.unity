@@ -3358,10 +3358,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 965fe5a0d2c3d41469c64bd2317fd742, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  apocalypseAbility: {fileID: 1787097498}
-  brimstoneAbility: {fileID: 1787097495}
-  immolationAbility: {fileID: 1787097497}
-  purgeAbility: {fileID: 1787097496}
+  abilities:
+  - {fileID: 1787097498}
+  - {fileID: 1787097495}
+  - {fileID: 1787097497}
+  - {fileID: 1787097496}
 --- !u!114 &1476525199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3551,8 +3552,8 @@ GameObject:
   - component: {fileID: 1787097492}
   - component: {fileID: 1787097498}
   - component: {fileID: 1787097495}
-  - component: {fileID: 1787097496}
   - component: {fileID: 1787097497}
+  - component: {fileID: 1787097496}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player

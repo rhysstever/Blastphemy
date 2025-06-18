@@ -84,7 +84,7 @@ public class UIManager : MonoBehaviour
     }
 
     private void UpdateAbilitySelects() {
-        List<BaseAbility> randomAbilties = AbilityManager.instance.GetRandomAbilities(3);
+        List<BaseAbility> randomAbilties = AbilityManager.instance.GetRandomAbilities(3, new List<BaseAbility>());
 
         for(int i = 0; i < abilityNames.Count; i++) {
             abilityNames[i].text = randomAbilties[i].AbilityName;

@@ -29,8 +29,7 @@ public class AbilityManager : MonoBehaviour
     #endregion
 
     [SerializeField]
-    private BaseAbility apocalypseAbility, brimstoneAbility, immolationAbility, purgeAbility;
-
+    private List<BaseAbility> abilities;
     private Dictionary<Ability, BaseAbility> abilityMap;
 
     private int currentLevel;
@@ -41,10 +40,9 @@ public class AbilityManager : MonoBehaviour
     void Start()
     {
         abilityMap = new Dictionary<Ability, BaseAbility>();
-        abilityMap.Add(Ability.Apocalypse, apocalypseAbility);
-        abilityMap.Add(Ability.Brimstone, brimstoneAbility);
-        abilityMap.Add(Ability.Immolation, immolationAbility);
-        abilityMap.Add(Ability.Purge, purgeAbility);
+        foreach(BaseAbility ability in abilities) {
+            abilityMap.Add(ability.AbilityType, ability);
+        }
 
         currentLevel = 0;
         currentXP = 0;
@@ -71,25 +69,17 @@ public class AbilityManager : MonoBehaviour
         abilityMap[abilityType].Upgrade();
     }
 
-    public List<BaseAbility> GetRandomAbilities(int numberOfAbilities) {
-        List<BaseAbility> baseAbilities = new List<BaseAbility>();
-        List<BaseAbility> remainingAbilties = abilityMap.Values.ToList();
+    public List<BaseAbility> GetRandomAbilities(int numberOfAbilities, List<BaseAbility> alreadySelectedAbilities) {
+        if(numberOfAbilities < 1) { 
+            return alreadySelectedAbilities;
+        } else {
+            List<BaseAbility> remainingAbilities = abilities.Where(a => !alreadySelectedAbilities.Contains(a)).ToList();
 
-        for(int i = 0; i < numberOfAbilities; i++) { 
-            if(remainingAbilties.Count > 0) {
-                // If there are still unique abilities left, get a random one
-                int randomIndex = Random.Range(0, remainingAbilties.Count);
-                BaseAbility randomAbility = remainingAbilties[randomIndex];
-                baseAbilities.Add(randomAbility);
-                // Remove it from being selected again
-                remainingAbilties.Remove(randomAbility);
-            } else {
-                // If there are no more unique abilities, provide the first ability
-                baseAbilities.Add(abilityMap.Values.ToList()[0]);
-            }
+            BaseAbility randomAbility = remainingAbilities[Random.Range(0, remainingAbilities.Count)];
+            alreadySelectedAbilities.Add(randomAbility);
+
+            return GetRandomAbilities(numberOfAbilities - 1, alreadySelectedAbilities);
         }
-
-        return baseAbilities;
     }
 
     public void AddXP(float xp) {

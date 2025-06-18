@@ -1,32 +1,25 @@
 using UnityEngine;
 
-public class ImmolationFlame : MonoBehaviour
+public class ImmolationFlame : AbilityProjectile
 {
-    private float damage, lifeSpan, currentLifeSpan;
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
         ImmolationAbility immolationAbility = AbilityManager.instance.GetAbility(Ability.Immolation) as ImmolationAbility;
         damage = immolationAbility.Damage;
         lifeSpan = immolationAbility.FlameLifeSpan;
-        currentLifeSpan = 0f;
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
-        if(GameManager.instance.CurrentMenuState == MenuState.Game) {
-            currentLifeSpan += Time.deltaTime;
-
-            if(currentLifeSpan >= lifeSpan) {
-                Destroy(gameObject);
-            }
-        }
+        base.Update();
     }
 
     private void OnTriggerEnter2D(Collider2D collider) {
-        if(collider.gameObject.tag == "Enemy") {
+        if(collider.gameObject.CompareTag("Enemy")) {
             collider.gameObject.GetComponent<EnemyCombat>().TakeDamage(damage);
         }
     }
