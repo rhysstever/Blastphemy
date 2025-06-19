@@ -36,8 +36,10 @@ public class ApocalypseAbility : BaseAbility
 
             List<Transform> enemyTransList = enemyTrans.OfType<Transform>().ToList();
             List<Transform> enemyTransInRange = enemyTransList.Where(t => isWithinRange(t.position)).ToList();
-            foreach(Transform enemyTranInRange in enemyTransInRange) { 
-                enemyTranInRange.gameObject.GetComponent<EnemyCombat>().TakeDamage(damage);
+            foreach(Transform enemyTranInRange in enemyTransInRange) {
+                if(enemyTranInRange.gameObject != null) {
+                    enemyTranInRange.gameObject.GetComponent<EnemyCombat>().TakeDamage(damage);
+                }
             }
         }
     }
