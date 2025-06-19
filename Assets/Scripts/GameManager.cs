@@ -51,6 +51,10 @@ public class GameManager : MonoBehaviour
         UpdateMenuState(menuStates.Peek());
     }
 
+    /// <summary>
+    /// Change the menu state of the game and run any one-time code
+    /// </summary>
+    /// <param name="newMenuState">The new menu state of the game</param>
     public void ChangeMenuState(MenuState newMenuState) {
         switch(newMenuState) {
             case MenuState.MainMenu:
@@ -78,10 +82,14 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
+        // Add the new menu state to the stack and update UI
         menuStates.Push(newMenuState);
-        UIManager.instance.UpdateUIState(newMenuState);
+        UIManager.instance.UpdateUI(newMenuState);
     }
 
+    /// <summary>
+    /// Move back to the previous menu state
+    /// </summary>
     public void ChangeMenuStateToPreviousMenu() {
         if(menuStates.Count > 1) {
             menuStates.Pop();
@@ -92,6 +100,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Perform continuous, every frame logic based on the current menu state
+    /// </summary>
+    /// <param name="newMenuState">The current menu state</param>
     public void UpdateMenuState(MenuState newMenuState) {
         switch(newMenuState) {
             case MenuState.MainMenu:
@@ -116,14 +128,26 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Get the player's current position
+    /// </summary>
+    /// <returns>The player object's current world position</returns>
     public Vector2 GetPlayerPosition() {
         return playerObject.transform.position;
     }
 
+    /// <summary>
+    /// Get where the player is currently aiming
+    /// </summary>
+    /// <returns>The normalized direction of the player's aim</returns>
     public Vector2 GetPlayerAim() {
         return playerObject.GetComponent<PlayerCombat>().ShootDirection;
     }
 
+    /// <summary>
+    /// Toggle the visibility of the player in the scene
+    /// </summary>
+    /// <param name="show">Whether the player should be visible or not</param>
     private void ShowPlayer(bool show) { 
         playerObject.GetComponent<SpriteRenderer>().enabled = show;
         playerObject.transform.GetChild(0).gameObject.SetActive(show);

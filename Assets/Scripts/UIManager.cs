@@ -42,7 +42,11 @@ public class UIManager : MonoBehaviour
         
     }
 
-    public void UpdateUIState(MenuState newMenuState) {
+    /// <summary>
+    /// Perform one-time UI updates based on a menu state
+    /// </summary>
+    /// <param name="newMenuState">The current menu state of the game</param>
+    public void UpdateUI(MenuState newMenuState) {
         switch(newMenuState) {
             case MenuState.MainMenu:
                 Reset();
@@ -57,7 +61,7 @@ public class UIManager : MonoBehaviour
                 mainMenuUIParent.SetActive(false);  // Needed for inital play
                 abilitySelectUIParent.SetActive(true);
                 pauseUIParent.SetActive(false);
-                UpdateAbilitySelects();
+                UpdateAbilitySelectUI();
                 break;
             case MenuState.Pause:
                 pauseUIParent.SetActive(true);
@@ -69,12 +73,18 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Setup onClicks for each button
+    /// </summary>
     private void SetupButtons() {
         mainMenuToGameButton.onClick.AddListener(() => { GameManager.instance.ChangeMenuState(MenuState.Game); });
         pauseToGameButton.onClick.AddListener(() => { GameManager.instance.ChangeMenuState(MenuState.Game); });
         pauseToMainMenuButton.onClick.AddListener(() => { GameManager.instance.ChangeMenuState(MenuState.MainMenu); });
     }
 
+    /// <summary>
+    /// Reset the game's UI
+    /// </summary>
     private void Reset() {
         mainMenuUIParent.SetActive(true);
         gameUIParent.SetActive(false);
@@ -83,10 +93,14 @@ public class UIManager : MonoBehaviour
         endUIParent.SetActive(false);
     }
 
-    private void UpdateAbilitySelects() {
+    /// <summary>
+    /// Update the UI for each ability select groups
+    /// </summary>
+    private void UpdateAbilitySelectUI() {
         List<BaseAbility> randomAbilties = AbilityManager.instance.GetRandomAbilities(3, new List<BaseAbility>());
 
         for(int i = 0; i < abilityNames.Count; i++) {
+            // Display the text for each ability
             abilityNames[i].text = randomAbilties[i].AbilityName;
             abilityDescriptions[i].text = randomAbilties[i].AbilityDescription;
             abilityFlavorTexts[i].text = randomAbilties[i].FlavorText;

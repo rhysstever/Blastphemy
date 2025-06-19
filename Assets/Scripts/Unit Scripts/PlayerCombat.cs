@@ -31,14 +31,23 @@ public class PlayerCombat : UnitCombat
         }
     }
 
+    /// <summary>
+    /// Deal damage to the player
+    /// </summary>
+    /// <param name="damage">The amount of damage the player should take</param>
     public override void TakeDamage(float damage) {
-        base.TakeDamage(damage);
+        if(damage >= 0) {
+            base.TakeDamage(damage);
 
-        if(currentHealth <= 0f) {
-            GameManager.instance.ChangeMenuState(MenuState.End);
+            if(currentHealth <= 0f) {
+                GameManager.instance.ChangeMenuState(MenuState.End);
+            }
         }
     }
 
+    /// <summary>
+    /// Calculate where the player is aiming
+    /// </summary>
     private void Aim() {
         if(playerControls.IsAiming()) {
             // Get new direction

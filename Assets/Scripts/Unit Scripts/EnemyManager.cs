@@ -53,6 +53,10 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Spawn an enemy in the scene
+    /// </summary>
+    /// <param name="enemy">The enemy prefab to be used</param>
     public void SpawnEnemy(GameObject enemy) {
         float randomAngle = Random.Range(0, 360f);
         Vector2 newPosition = new Vector2(Mathf.Sin(randomAngle), Mathf.Cos(randomAngle));
