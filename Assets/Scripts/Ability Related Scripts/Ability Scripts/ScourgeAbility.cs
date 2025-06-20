@@ -15,8 +15,8 @@ public class ScourgeAbility : BaseAbility
 
         abilityType = AbilityType.Scourge;
         abilityName = "Scourge";
-        abilityDescription = "Emit a damaging aura in a small area around you.";
-        flavorText = "QUOTE NEEDED";
+        abilityDescription = "Emit a small holy aura that damages enemies.";
+        flavorText = "...when the overflowing scourge shall pass through, then ye shall be trodden down by it. - Isaiah 28:18";
 
         damage = 0.01f;
         cooldown = 0f;
