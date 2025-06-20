@@ -105,7 +105,7 @@ public class UIManager : MonoBehaviour
             abilityDescriptions[i].text = randomAbilties[i].AbilityDescription;
             abilityFlavorTexts[i].text = randomAbilties[i].FlavorText;
 
-            Ability abilityType = randomAbilties[i].AbilityType;
+            AbilityType abilityType = randomAbilties[i].AbilityType;
 
             // Setup corresponding button
             abilitySelectButtons[i].onClick.RemoveAllListeners();

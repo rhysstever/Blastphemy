@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class ImmolationFlame : AbilityProjectile
+public class ImmolationFlame : DynamicAbilityProjectile
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start()
     {
         base.Start();
 
-        ImmolationAbility immolationAbility = AbilityManager.instance.GetAbility(Ability.Immolation) as ImmolationAbility;
+        ImmolationAbility immolationAbility = AbilityManager.instance.GetAbility(AbilityType.Immolation) as ImmolationAbility;
         damage = immolationAbility.Damage;
         lifeSpan = immolationAbility.FlameLifeSpan;
     }

@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class BaseAbility : MonoBehaviour
 {
-    protected Ability abilityType;
+    protected AbilityType abilityType;
     protected string abilityName, abilityDescription, flavorText;
     protected int level;
     protected float damage, cooldown, currentCooldownTimer;
 
-    public Ability AbilityType { get { return abilityType; } }
+    public AbilityType AbilityType { get { return abilityType; } }
     public string AbilityName { get { return abilityName; } }
     public string AbilityDescription { get { return abilityDescription; } }
     public string FlavorText { get { return flavorText; } }

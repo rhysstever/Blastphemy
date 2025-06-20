@@ -7,7 +7,7 @@ public class BrimstoneChunk : AbilityProjectile
     {
         base.Start();
 
-        BrimstoneAbility brimstoneAbility = AbilityManager.instance.GetAbility(Ability.Brimstone) as BrimstoneAbility;
+        BrimstoneAbility brimstoneAbility = AbilityManager.instance.GetAbility(AbilityType.Brimstone) as BrimstoneAbility;
         damage = brimstoneAbility.Damage;
         lifeSpan = brimstoneAbility.ChunkLifeSpan;
     }
@@ -18,9 +18,9 @@ public class BrimstoneChunk : AbilityProjectile
         base.Update();
     }
 
-    private void OnTriggerEnter2D(Collider2D collider) {
-        if(collider.gameObject.CompareTag("Enemy")) {
-            collider.gameObject.GetComponent<EnemyCombat>().TakeDamage(damage);
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if(collision.gameObject.CompareTag("Enemy")) {
+            collision.gameObject.GetComponent<EnemyCombat>().TakeDamage(damage);
         }
     }
 }

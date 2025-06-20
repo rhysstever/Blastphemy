@@ -2,12 +2,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public enum Ability
+public enum AbilityType
 {
     Apocalypse,
     Brimstone,
     Immolation,
-    Purge
+    Purge,
+    Scourge
 }
 
 public class AbilityManager : MonoBehaviour
@@ -30,7 +31,7 @@ public class AbilityManager : MonoBehaviour
 
     [SerializeField]
     private List<BaseAbility> abilities;
-    private Dictionary<Ability, BaseAbility> abilityMap;
+    private Dictionary<AbilityType, BaseAbility> abilityMap;
 
     private int currentLevel;
     private float currentXP;
@@ -40,7 +41,7 @@ public class AbilityManager : MonoBehaviour
     void Start()
     {
         // For each ability in the abilities list, map it to its AbilityType
-        abilityMap = new Dictionary<Ability, BaseAbility>();
+        abilityMap = new Dictionary<AbilityType, BaseAbility>();
         foreach(BaseAbility ability in abilities) {
             abilityMap.Add(ability.AbilityType, ability);
         }
@@ -59,7 +60,7 @@ public class AbilityManager : MonoBehaviour
     /// </summary>
     /// <param name="ability">The ability type</param>
     /// <returns>An Ability that can be cast as a child BaseAbility</returns>
-    public BaseAbility GetAbility(Ability ability) {
+    public BaseAbility GetAbility(AbilityType ability) {
         return abilityMap[ability];
     }
 
@@ -67,7 +68,7 @@ public class AbilityManager : MonoBehaviour
     /// Upgrade an Ability to the next level
     /// </summary>
     /// <param name="abilityType">The ability type</param>
-    public void UpgradeAbility(Ability abilityType) {
+    public void UpgradeAbility(AbilityType abilityType) {
         abilityMap[abilityType].Upgrade();
     }
 

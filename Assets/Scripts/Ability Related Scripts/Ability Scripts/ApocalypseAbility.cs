@@ -11,7 +11,7 @@ public class ApocalypseAbility : BaseAbility
     {
         base.Start();
 
-        abilityType = Ability.Apocalypse;
+        abilityType = AbilityType.Apocalypse;
         abilityName = "Apocalypse";
         abilityDescription = "Strike all nearby enemies with lightning";
         flavorText = "QUOTE NEEDED";

@@ -17,7 +17,7 @@ public class BrimstoneAbility : BaseAbility
     {
         base.Start();
 
-        abilityType = Ability.Brimstone;
+        abilityType = AbilityType.Brimstone;
         abilityName = "Brimstone";
         abilityDescription = "Rain large chunks of fire that deal area damage around you.";
         flavorText = "Upon the wicked he shall rain snares, fire and brimstone, and an horrible tempest: this shall be the portion of their cup. - Psalm 11:6";

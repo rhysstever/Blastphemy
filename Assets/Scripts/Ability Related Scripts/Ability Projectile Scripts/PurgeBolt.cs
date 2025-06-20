@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class PurgeBolt : AbilityProjectile
+public class PurgeBolt : DynamicAbilityProjectile
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected override void Start() 
     {
         base.Start();
 
-        PurgeAbility purgeAbility = AbilityManager.instance.GetAbility(Ability.Purge) as PurgeAbility;
+        PurgeAbility purgeAbility = AbilityManager.instance.GetAbility(AbilityType.Purge) as PurgeAbility;
         damage = purgeAbility.Damage;
         lifeSpan = purgeAbility.BoltLifeSpan;
     }
