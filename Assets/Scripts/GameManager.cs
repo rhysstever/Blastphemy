@@ -65,9 +65,11 @@ public class GameManager : MonoBehaviour
                 ShowPlayer(true);
 
                 // If this is the start of the game, trigger the first ability select screen
-                if(menuStates.Peek() == MenuState.MainMenu) {
-                    AbilityManager.instance.AddXP(0);
-                    return;
+                if(menuStates.TryPeek(out MenuState previousMenuState)) {
+                    if(previousMenuState == MenuState.MainMenu) {
+                        AbilityManager.instance.AddXP(0);
+                        return;
+                    }
                 }
 
                 menuStates.Clear();
@@ -82,8 +84,9 @@ public class GameManager : MonoBehaviour
                 break;
         }
 
-        // Add the new menu state to the stack and update UI
+        // Add the new menu state to the stack
         menuStates.Push(newMenuState);
+        // Update UI
         UIManager.instance.UpdateUI(newMenuState);
     }
 
