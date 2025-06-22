@@ -26,7 +26,7 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Button mainMenuToGameButton, pauseToGameButton, pauseToMainMenuButton;
     [SerializeField]
-    private TMP_Text gameTimerText;
+    private TMP_Text gameTimerText, levelText;
     [SerializeField]
     private List<Button> abilitySelectButtons;
     [SerializeField]
@@ -139,5 +139,9 @@ public class UIManager : MonoBehaviour
     /// </summary>
     private void UpdateGameTimerText() {
         gameTimerText.text = GameManager.instance.GetGameTime();
+    }
+
+    public void UpdateLevelText(string title, int level) {
+        levelText.text = string.Format("{0} {1}", title, level);
     }
 }

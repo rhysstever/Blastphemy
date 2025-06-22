@@ -35,7 +35,9 @@ public class AbilityManager : MonoBehaviour
 
     private int currentLevel;
     private float currentXP;
-    private List<float> xpNeededForNextLevel;
+    private List<float> levels;
+    private int currentTitleIndex;
+    private List<string> titles;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -46,7 +48,7 @@ public class AbilityManager : MonoBehaviour
             abilityMap.Add(ability.AbilityType, ability);
         }
 
-        SetupLevels();
+        SetupLevelsAndTitles();
     }
 
     // Update is called once per frame
@@ -110,28 +112,45 @@ public class AbilityManager : MonoBehaviour
     /// <summary>
     /// Set up initial level and xp; along with the amount of xp needed to level up
     /// </summary>
-    private void SetupLevels() {
+    private void SetupLevelsAndTitles() {
         currentLevel = 0;
         currentXP = 0;
-        xpNeededForNextLevel = new List<float>();
-        xpNeededForNextLevel.Add(0);
-        xpNeededForNextLevel.Add(30);
-        xpNeededForNextLevel.Add(60);
-        xpNeededForNextLevel.Add(120);
-        xpNeededForNextLevel.Add(200);
-        xpNeededForNextLevel.Add(350);
+        levels = new List<float>();
+        levels.Add(0f);
+        levels.Add(30f);
+        levels.Add(60f);
+        levels.Add(120f);
+        levels.Add(200f);
+        levels.Add(350f);
+        levels.Add(500f);
+        levels.Add(750f);
+        levels.Add(1000f);
+        levels.Add(1500f);
+        levels.Add(2000f);
+
+        currentTitleIndex = 0;
+        titles = new List<string>();
+        titles.Add("Laity");
+        titles.Add("Deacon");
+        titles.Add("Priest");
+        titles.Add("Bishop");
+        titles.Add("Archbishop");
+        titles.Add("Cardinal");
+        titles.Add("Pope");
     }
 
     /// <summary>
     /// Check if the player has enough xp to level up
     /// </summary>
     private void CheckLevelUp() {
-        float xpForNextLevel = xpNeededForNextLevel[currentLevel];
+        float xpForNextLevel = levels[0];
 
         if(currentXP >= xpForNextLevel) {
             currentXP -= xpForNextLevel;
             GameManager.instance.ChangeMenuState(MenuState.AbilitySelect);
             currentLevel++;
+
+            UIManager.instance.UpdateLevelText(titles[currentTitleIndex], currentLevel);
         }
     }
 }
