@@ -2,21 +2,21 @@ using UnityEngine;
 
 public class AbilityProjectile : MonoBehaviour
 {
-    protected float damage, lifeSpan, currentLifeSpan;
+    protected float damage, lifeSpan, currentLifeSpanTimer;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     protected virtual void Start()
     {
-        currentLifeSpan = 0f;
+        currentLifeSpanTimer = 0f;
     }
 
     // Update is called once per frame
     protected virtual void Update()
     {
         if(GameManager.instance.CurrentMenuState == MenuState.Game) {
-            currentLifeSpan += Time.deltaTime;
+            currentLifeSpanTimer += Time.deltaTime;
 
-            if(currentLifeSpan >= lifeSpan) {
+            if(currentLifeSpanTimer >= lifeSpan) {
                 Destroy(gameObject);
             }
         }
