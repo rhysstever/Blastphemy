@@ -22,9 +22,9 @@ public class UIManager : MonoBehaviour
     #endregion
 
     [SerializeField]
-    private GameObject mainMenuUIParent, gameUIParent, abilitySelectUIParent, pauseUIParent, endUIParent;
+    private GameObject mainMenuUIParent, upgradesUIParent, gameUIParent, abilitySelectUIParent, pauseUIParent, endUIParent;
     [SerializeField]
-    private Button mainMenuToGameButton, pauseToGameButton, pauseToMainMenuButton;
+    private Button mainMenuToUpgradesButton, upgradesToGameButton, pauseToGameButton, pauseToMainMenuButton, endToUpgradesButton;
     [SerializeField]
     private TMP_Text gameTimerText, levelText;
     [SerializeField]
@@ -53,14 +53,13 @@ public class UIManager : MonoBehaviour
             case MenuState.MainMenu:
                 Reset();
                 break;
+            case MenuState.Upgrades:
+                HideAllButOneMenuUI(MenuState.Upgrades);
+                break;
             case MenuState.Game:
-                mainMenuUIParent.SetActive(false);
-                abilitySelectUIParent.SetActive(false);
-                pauseUIParent.SetActive(false);
-                gameUIParent.SetActive(true);
+                HideAllButOneMenuUI(MenuState.Game);
                 break;
             case MenuState.AbilitySelect:
-                mainMenuUIParent.SetActive(false);  // Needed for inital play
                 abilitySelectUIParent.SetActive(true);
                 pauseUIParent.SetActive(false);
                 UpdateAbilitySelectUI();
@@ -69,8 +68,7 @@ public class UIManager : MonoBehaviour
                 pauseUIParent.SetActive(true);
                 break;
             case MenuState.End:
-                gameUIParent.SetActive(false);
-                endUIParent.SetActive(true);
+                HideAllButOneMenuUI(MenuState.End);
                 break;
         }
     }
@@ -78,6 +76,8 @@ public class UIManager : MonoBehaviour
     public void UpdateUI(MenuState newMenuState) {
         switch(newMenuState) {
             case MenuState.MainMenu:
+                break;
+            case MenuState.Upgrades:
                 break;
             case MenuState.Game:
                 UpdateGameTimerText();
@@ -95,20 +95,27 @@ public class UIManager : MonoBehaviour
     /// Setup onClicks for each button
     /// </summary>
     private void SetupButtons() {
-        mainMenuToGameButton.onClick.AddListener(() => { GameManager.instance.ChangeMenuState(MenuState.Game); });
+        mainMenuToUpgradesButton.onClick.AddListener(() => { GameManager.instance.ChangeMenuState(MenuState.Upgrades); });
+        upgradesToGameButton.onClick.AddListener(() => { GameManager.instance.ChangeMenuState(MenuState.Game); });
         pauseToGameButton.onClick.AddListener(() => { GameManager.instance.ChangeMenuState(MenuState.Game); });
         pauseToMainMenuButton.onClick.AddListener(() => { GameManager.instance.ChangeMenuState(MenuState.MainMenu); });
+        endToUpgradesButton.onClick.AddListener(() => { GameManager.instance.ChangeMenuState(MenuState.Upgrades); });
     }
 
     /// <summary>
     /// Reset the game's UI
     /// </summary>
     private void Reset() {
-        mainMenuUIParent.SetActive(true);
-        gameUIParent.SetActive(false);
-        abilitySelectUIParent.SetActive(false);
-        pauseUIParent.SetActive(false);
-        endUIParent.SetActive(false);
+        HideAllButOneMenuUI(MenuState.MainMenu);
+    }
+
+    private void HideAllButOneMenuUI(MenuState menuStateToShow) {
+        mainMenuUIParent.SetActive(menuStateToShow == MenuState.MainMenu);
+        upgradesUIParent.SetActive(menuStateToShow == MenuState.Upgrades);
+        gameUIParent.SetActive(menuStateToShow == MenuState.Game);
+        abilitySelectUIParent.SetActive(menuStateToShow == MenuState.AbilitySelect);
+        pauseUIParent.SetActive(menuStateToShow == MenuState.Pause);
+        endUIParent.SetActive(menuStateToShow == MenuState.End);
     }
 
     /// <summary>

@@ -4,6 +4,7 @@ using UnityEngine;
 public enum MenuState
 {
     MainMenu,
+    Upgrades,
     Game,
     AbilitySelect,
     Pause,
@@ -63,6 +64,10 @@ public class GameManager : MonoBehaviour
                 ShowPlayer(false);
                 menuStates.Clear();
                 break;
+            case MenuState.Upgrades:
+                ShowPlayer(false);
+                menuStates.Clear();
+                break;
             case MenuState.Game:
                 ShowPlayer(true);
 
@@ -112,6 +117,8 @@ public class GameManager : MonoBehaviour
     public void UpdateMenuState(MenuState newMenuState) {
         switch(newMenuState) {
             case MenuState.MainMenu:
+                break;
+            case MenuState.Upgrades:
                 break;
             case MenuState.Game:
                 if(playerObject.GetComponent<PlayerControls>().IsPauseClicked()) {
