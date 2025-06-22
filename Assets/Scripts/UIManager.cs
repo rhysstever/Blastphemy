@@ -26,6 +26,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Button mainMenuToGameButton, pauseToGameButton, pauseToMainMenuButton;
     [SerializeField]
+    private TMP_Text gameTimerText;
+    [SerializeField]
     private List<Button> abilitySelectButtons;
     [SerializeField]
     private List<TMP_Text> abilityNames, abilityDescriptions, abilityFlavorTexts;
@@ -39,14 +41,14 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        UpdateUI(GameManager.instance.CurrentMenuState);
     }
 
     /// <summary>
     /// Perform one-time UI updates based on a menu state
     /// </summary>
     /// <param name="newMenuState">The current menu state of the game</param>
-    public void UpdateUI(MenuState newMenuState) {
+    public void ChangeUI(MenuState newMenuState) {
         switch(newMenuState) {
             case MenuState.MainMenu:
                 Reset();
@@ -69,6 +71,22 @@ public class UIManager : MonoBehaviour
             case MenuState.End:
                 gameUIParent.SetActive(false);
                 endUIParent.SetActive(true);
+                break;
+        }
+    }
+
+    public void UpdateUI(MenuState newMenuState) {
+        switch(newMenuState) {
+            case MenuState.MainMenu:
+                break;
+            case MenuState.Game:
+                UpdateGameTimerText();
+                break;
+            case MenuState.AbilitySelect:
+                break;
+            case MenuState.Pause:
+                break;
+            case MenuState.End:
                 break;
         }
     }
@@ -114,5 +132,12 @@ public class UIManager : MonoBehaviour
                 GameManager.instance.ChangeMenuState(MenuState.Game);
             });
         }
+    }
+
+    /// <summary>
+    /// Update the game clock
+    /// </summary>
+    private void UpdateGameTimerText() {
+        gameTimerText.text = GameManager.instance.GetGameTime();
     }
 }

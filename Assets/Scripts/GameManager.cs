@@ -35,6 +35,8 @@ public class GameManager : MonoBehaviour
 
     private Stack<MenuState> menuStates;
 
+    private float gameTime;
+
     public Transform BulletParent { get { return bulletParent; } }
     public MenuState CurrentMenuState { get { return menuStates.Peek(); } }
 
@@ -87,7 +89,7 @@ public class GameManager : MonoBehaviour
         // Add the new menu state to the stack
         menuStates.Push(newMenuState);
         // Update UI
-        UIManager.instance.UpdateUI(newMenuState);
+        UIManager.instance.ChangeUI(newMenuState);
     }
 
     /// <summary>
@@ -115,6 +117,8 @@ public class GameManager : MonoBehaviour
                 if(playerObject.GetComponent<PlayerControls>().IsPauseClicked()) {
                     ChangeMenuState(MenuState.Pause);
                 }
+
+                gameTime += Time.deltaTime;
                 break;
             case MenuState.AbilitySelect:
                 if(playerObject.GetComponent<PlayerControls>().IsPauseClicked()) {
@@ -145,6 +149,17 @@ public class GameManager : MonoBehaviour
     /// <returns>The normalized direction of the player's aim</returns>
     public Vector2 GetPlayerAim() {
         return playerObject.GetComponent<PlayerCombat>().ShootDirection;
+    }
+
+    /// <summary>
+    /// Get the current time in game
+    /// </summary>
+    /// <returns>A formatted string of the current in game time</returns>
+    public string GetGameTime() {
+        string minutes = ((int)gameTime / 60).ToString("D2");
+        string seconds = ((int)gameTime % 60).ToString("D2");
+
+        return string.Format("{0}:{1}", minutes, seconds);
     }
 
     /// <summary>
