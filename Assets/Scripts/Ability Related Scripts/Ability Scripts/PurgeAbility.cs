@@ -41,9 +41,10 @@ public class PurgeAbility : BaseAbility
     }
 
     private void SpawnBolt() {
-        Vector2 newPosition = GameManager.instance.GetPlayerPosition() + GameManager.instance.GetPlayerAim();
+        Vector2 direction = GameManager.instance.GetPlayerAim();
+        Vector2 newPosition = GameManager.instance.GetPlayerPosition() + direction;
 
         GameObject newBolt = Instantiate(purgeBoltPrefab, newPosition, Quaternion.identity, GameManager.instance.BulletParent);
-        newBolt.GetComponent<PurgeBolt>().SetVelocity(GameManager.instance.GetPlayerAim() * boltProjectileSpeed);
+        newBolt.GetComponent<PurgeBolt>().SetVelocity(direction * boltProjectileSpeed);
     }
 }

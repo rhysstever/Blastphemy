@@ -155,7 +155,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <returns>The normalized direction of the player's aim</returns>
     public Vector2 GetPlayerAim() {
-        return playerObject.GetComponent<PlayerCombat>().ShootDirection;
+        return playerObject.GetComponent<PlayerMovement>().GetAimDirection();
     }
 
     /// <summary>
