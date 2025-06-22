@@ -143,7 +143,7 @@ public class AbilityManager : MonoBehaviour
     /// Check if the player has enough xp to level up
     /// </summary>
     private void CheckLevelUp() {
-        float xpForNextLevel = levels[0];
+        float xpForNextLevel = levels[currentLevel];
 
         if(currentXP >= xpForNextLevel) {
             currentXP -= xpForNextLevel;

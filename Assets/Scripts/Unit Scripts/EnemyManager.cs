@@ -63,6 +63,11 @@ public class EnemyManager : MonoBehaviour
         newPosition *= spawnRange;
         newPosition += GameManager.instance.GetPlayerPosition();
 
-        Instantiate(enemy, newPosition, Quaternion.identity, enemyParent);
+        // If the random position is not within a collider (another enemy or wall) spawn it, otherwise try again
+        if(Physics2D.OverlapCircle(newPosition, enemy.GetComponent<CircleCollider2D>().radius) == null) {
+            Instantiate(enemy, newPosition, Quaternion.identity, enemyParent);
+        } else {
+            SpawnEnemy(enemy);
+        }
     }
 }
