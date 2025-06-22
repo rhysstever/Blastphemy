@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
 
                 // If this is the start of the game, trigger the first ability select screen
                 if(menuStates.TryPeek(out MenuState previousMenuState)) {
-                    if(previousMenuState == MenuState.MainMenu) {
+                    if(previousMenuState == MenuState.Upgrades) {
                         AbilityManager.instance.AddXP(0);
                         return;
                     }
